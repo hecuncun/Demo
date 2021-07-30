@@ -1,9 +1,8 @@
 pipeline {
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '30', daysToKeepStr: '7'))
-        timestamps()
-    }
-
+    agent any
+      options {
+        timeout(time: 1, unit: 'HOURS')
+      }
     stages {
 
         stage('Build master APK') {
