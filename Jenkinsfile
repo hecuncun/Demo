@@ -1,8 +1,4 @@
 pipeline {
-    agent {
-        label "Android"
-    }
-
     options {
         buildDiscarder(logRotator(numToKeepStr: '30', daysToKeepStr: '7'))
         timestamps()
