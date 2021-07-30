@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="jenkins Demo!"
@@ -14,5 +15,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
+     <TextView
+         android:gravity="center"
+         app:layout_constraintTop_toBottomOf="@id/content"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="dev-hcc"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
