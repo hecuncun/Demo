@@ -11,7 +11,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-              sh './gradlew clean assembleRelease'
+              bat './gradlew clean assembleRelease'
             }
             post {
                 failure {
@@ -28,7 +28,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                sh './gradlew clean assembleDebug'
+                bat './gradlew clean assembleDebug'
 
             }
             post {
