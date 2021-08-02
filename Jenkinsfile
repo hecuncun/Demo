@@ -100,8 +100,8 @@ pipeline {
                  emailext body: 'apk版本有更新', subject: 'apk上传成功啦', to: '13753638431@163.com'
              }
 
+          }
         }
-
     }
 }
 //report 提交日志
