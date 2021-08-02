@@ -5,18 +5,17 @@ pipeline {
       //agent { label 'Android'}
       agent any
 
-      parameters  {
-          string(
-           bundleId: 'jenkinsDemo',
-           apiToken: 'd319ac25103e1f6d03dc4fbf545ad8a7',
-           apkPath: 'app/release/app-release',
-           apkName: 'app-release',
-           buildId:'1',
-           apkVersion: '1.0',
-           appPlatform:'fir'
-           )
-      }
-//python uploadapk.py demo-android-app-10 65d7edxxxxxxx7c4fabda25 app.apk  demo-android-app 10 10.12 fir
+      //parameters  {
+      //    string(
+       //    bundleId: 'jenkinsDemo',
+       //    apiToken: 'd319ac25103e1f6d03dc4fbf545ad8a7',
+       //    apkPath: 'app/release/app-release',
+       //    apkName: 'app-release',
+        //   buildId:'1',
+         //  apkVersion: '1.0',
+        //   appPlatform:'fir'
+      //     )
+     // }
       options {//超时了，就会终止这次的构建  options还有其他配置，比如失败后重试整个pipeline的次数：retry(3)
         timeout(time: 1, unit: 'HOURS')
       }
@@ -53,7 +52,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assembleRelease'
+                bat './gradlew clean assembleDebug'
 
             }
             post {
@@ -68,8 +67,7 @@ pipeline {
 
         stage('Upload') {//需执行上传任务   此处配置  fir.im脚本
             steps {
-                //archiveArtifacts(artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true, onlyIfSuccessful: true)
-                archiveArtifacts(artifacts: 'app/release/*.apk', fingerprint: true, onlyIfSuccessful: true)
+                archiveArtifacts(artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true, onlyIfSuccessful: true)
             }
             post {
                 failure {
@@ -91,29 +89,18 @@ pipeline {
 
         stage('Publish'){
           steps{
-            bat "mv app/build/outputs/apk/debug/app-debug.apk ./${params.apkName}.apk"
-            def result
-            result = bat returnStdout: true, script: """python uploadapk.py ${params.bundleId} \
-                                                       ${params.apiToken} "${params.apkPath}.apk" \
-                                                       "${params.apkName}" "${params.buildId}" \
-                                                       "${params.apkVersion}" "${params.appPlatform}" """
-
-            result = result - "\n"
-            println(result)
-            currentBuild.description="<img src=${result}>"
-
+             bat './gradlew debugToFir'
           }
           post {
-                          failure {
-                              echo "Publish Failure!"
-                          }
-                          success {
-                              echo "Publish Success!"
-                              emailext body: 'apk版本信息为${params.apkName} ${params.apkVersion}', subject: 'apk上传成功啦', to: '13753638431@163.com'
-                          }
-                      }
-        }
+             failure {
+                echo "Publish Failure!"
+             }
+             success {
+                 echo "Publish Success!"
+                 emailext body: 'apk版本有更新', subject: 'apk上传成功啦', to: '13753638431@163.com'
+             }
 
+        }
 
     }
 }

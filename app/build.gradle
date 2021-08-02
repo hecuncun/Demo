@@ -40,6 +40,35 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    task debugToFir {
+        dependsOn 'assembleDebug'
+        doLast {
+            //def upUrl = "http://api.fir.im/apps"
+            def upUrl = "http://api.bq04.com/apps"
+            def appName = "demo"
+            def bundleId = project.android.defaultConfig.applicationId
+            def verName = project.android.defaultConfig.versionName
+            def apiToken = "d319ac25103e1f6d03dc4fbf545ad8a7"
+            def iconPath = "app/src/main/res/mipmap-hdpi/ic_launcher.png"
+            def apkPath = "app/build/outputs/apk/debug/app-debug.apk"
+            def buildNumber = project.android.defaultConfig.versionCode
+            def changeLog = "版本更新日志"
+            //执行Python脚本
+            def process = "python upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
+            println("开始上传至fir")
+            //获取Python脚本日志，便于出错调试
+            ByteArrayOutputStream result = new ByteArrayOutputStream()
+            def inputStream = process.getInputStream()
+            byte[] buffer = new byte[1024]
+            int length
+            while ((length = inputStream.read(buffer)) != -1) {
+                result.write(buffer, 0, length)
+            }
+            println(result.toString("UTF-8"))
+            println "上传结束 "
+        }
+    }
 }
 
 dependencies {
