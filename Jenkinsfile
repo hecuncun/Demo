@@ -9,9 +9,9 @@ pipeline {
           string(
            bundleId: 'jenkinsDemo',
            apiToken: 'd319ac25103e1f6d03dc4fbf545ad8a7',
-           apkPath: 'app/release/app-release'
+           apkPath: 'app/release/app-release',
            apkName: 'app-release',
-           buildId:'1'
+           buildId:'1',
            apkVersion: '1.0',
            appPlatform:'fir'
            )
