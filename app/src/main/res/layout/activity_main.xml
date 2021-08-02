@@ -19,5 +19,5 @@
          app:layout_constraintTop_toBottomOf="@id/content"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:text="dev-hcc"/>
+         android:text="dev-hcc jenkins 自动上传"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
