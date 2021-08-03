@@ -17,7 +17,10 @@ pipeline {
          stage('read-yaml'){
             steps{
                 script{
-                       echo setting.market
+                       echo setting.get('market')
+
+                       println setting
+
                        println setting.getClass()
                 }
 
