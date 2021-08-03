@@ -24,7 +24,7 @@ pipeline {
                        echo valuesYaml
                        println valuesYaml.getClass()
                 }
-                echo valuesYaml.market.toString
+                echo valuesYaml.market.toString()
              }
 
 
