@@ -52,7 +52,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assembleDebug'
+                bat './gradlew clean assembleGoogleDebug'
 
             }
             post {
