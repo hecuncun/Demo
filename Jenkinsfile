@@ -1,5 +1,5 @@
 def loadValuesYaml(){
-  def valuesYaml = readYaml (file: 'template.yaml')
+  def valuesYaml = readYaml (file: 'config.yaml')
   return valuesYaml;
 }
 
@@ -24,7 +24,7 @@ pipeline {
                        echo valuesYaml
                        println valuesYaml.getClass()
                 }
-
+               echo valuesYaml.setting.market.toString
              }
 
 
