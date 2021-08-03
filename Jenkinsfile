@@ -22,8 +22,8 @@ pipeline {
          stage('read-yaml'){
             steps{
                 script{
-                       echo valuesYaml
-                       println valuesYaml.getClass()
+                       echo appVersion
+                       println market.getClass()
                 }
                echo market
              }
