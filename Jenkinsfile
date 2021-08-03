@@ -1,7 +1,4 @@
-def loadValuesYaml(x){
-  def valuesYaml = readYaml (file: 'config.yaml')
-  return valuesYaml[x];
-}
+def config = readYaml file: 'config.yaml'
 
 pipeline {
       //agent节点   多个构建从节点   有的只配置了Android环境用于执行Android项目构建，有的只能执行iOS项目构建，有的是用于执行Go项目
@@ -10,8 +7,8 @@ pipeline {
       //agent { label 'Android'}
       agent any
       environment {
-        market = loadValuesYaml('market')
-        appVersion = loadValuesYaml('appVersion')
+        market = config.market
+        appVersion =config.appVersion
      }
       options {//超时了，就会终止这次的构建  options还有其他配置，比如失败后重试整个pipeline的次数：retry(3)
         timeout(time: 1, unit: 'HOURS')
