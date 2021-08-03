@@ -1,6 +1,6 @@
-def loadValuesYaml(){
+def loadValuesYaml(x){
   def valuesYaml = readYaml (file: 'config.yaml')
-  return valuesYaml;
+  return valuesYaml[x];
 }
 
 pipeline {
@@ -10,7 +10,8 @@ pipeline {
       //agent { label 'Android'}
       agent any
       environment {
-        valuesYaml = loadValuesYaml()
+        market = loadValuesYaml('market')
+        appVersion = loadValuesYaml('appVersion')
      }
       options {//超时了，就会终止这次的构建  options还有其他配置，比如失败后重试整个pipeline的次数：retry(3)
         timeout(time: 1, unit: 'HOURS')
@@ -24,7 +25,7 @@ pipeline {
                        echo valuesYaml
                        println valuesYaml.getClass()
                 }
-               echo valuesYaml.setting.market.toString
+               echo market
              }
 
 
