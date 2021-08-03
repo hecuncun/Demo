@@ -1,16 +1,14 @@
 version: 1
 type: pipeline-template
-
 name: Android App Pipeline Job
 description: Simple Android App
+maintainers: oneslide
 parameters:
   - name: market
     displayName: google or huawei
-    type: string
-    defaultValue: Google
+    value: Google
   - name: buildNum
     displayName: buildNum Version
-    type: string
-    defaultValue: 1.0
+    value: 1.0
 
 

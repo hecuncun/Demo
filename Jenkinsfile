@@ -11,7 +11,21 @@ pipeline {
 
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
         //可以根据分支配置构建参数   最好的方式时从一个json文件中获取对应的配置文件。再设置给构建脚本的local
+         stage("read-yaml"){
+           script{
+           //map类型,通过"."引用，template.yaml在项目在git项目根目录。
+           def params = readYaml file:'template.yaml'
+           //get map property
+           if(params.maintainers !=null){
+             println params.maintainers
+           }
+           for(param in params.maintainers){
+             println params.name
+           }
 
+           }
+
+         }
         stage('Build master APK') {
 
             when {
@@ -42,7 +56,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assemble"${market}"Debug'
+                bat './gradlew clean assembleGoogleRelease'
             }
             post {
                 failure {
