@@ -22,9 +22,9 @@ pipeline {
             steps{
                 script{
                        echo valuesYaml
-                       println valuesYaml.
+                       println valuesYaml.getClass()
                 }
-                echo valuesYaml.market
+                echo valuesYaml.market.toString
              }
 
 
