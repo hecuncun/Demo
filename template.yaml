@@ -1,4 +1,5 @@
-replicaCount: 1
-appName: test
+appVersion: 1.0
+market:google
+
 
 
