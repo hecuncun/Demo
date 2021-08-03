@@ -1,17 +1,13 @@
-def loadValuesYaml(){
-  def valuesYaml = readYaml (file: 'config.yaml')
-  return valuesYaml;
-}
 
+node {
+  setting = readYaml file: 'config.yaml'
+}
 pipeline {
       //agent节点   多个构建从节点   有的只配置了Android环境用于执行Android项目构建，有的只能执行iOS项目构建，有的是用于执行Go项目
       //那这么多不同的节点怎么管理及分配呢？
       //那就是通过对节点声明不同的标签label，然后在我们的构建中指定标签，这样Jenkins就会找到有对应标签的节点去执行构建了
       //agent { label 'Android'}
       agent any
-      environment {
-        valuesYaml = loadValuesYaml()
-     }
       options {//超时了，就会终止这次的构建  options还有其他配置，比如失败后重试整个pipeline的次数：retry(3)
         timeout(time: 1, unit: 'HOURS')
       }
@@ -21,8 +17,8 @@ pipeline {
          stage('read-yaml'){
             steps{
                 script{
-                       echo valuesYaml
-                       println valuesYaml.getClass()
+                       echo ${setting.market}
+                       println setting.getClass()
                 }
 
              }
