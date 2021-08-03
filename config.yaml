@@ -1,4 +1,5 @@
-setting: {market: google,appVersion: 1.0}
+market: google,
+appVersion: 1.0
 
 
 
