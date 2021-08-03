@@ -1,14 +1,4 @@
-version: 1
-type: pipeline-template
-name: Android App Pipeline Job
-description: Simple Android App
-maintainers: oneslide
-parameters:
-  - name: market
-    displayName: google or huawei
-    value: Google
-  - name: buildNum
-    displayName: buildNum Version
-    value: 1.0
+replicaCount: 1
+appName: test
 
 
