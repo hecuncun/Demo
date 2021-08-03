@@ -53,9 +53,6 @@ pipeline {
 
                 }
 
-                always{
-                  echo "BuildParam "${buildNum}" "
-                }
             }
         }
 
