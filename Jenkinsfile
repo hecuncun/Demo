@@ -5,22 +5,12 @@ pipeline {
       //agent { label 'Android'}
       agent any
 
-      //parameters  {
-      //    string(
-       //    bundleId: 'jenkinsDemo',
-       //    apiToken: 'd319ac25103e1f6d03dc4fbf545ad8a7',
-       //    apkPath: 'app/release/app-release',
-       //    apkName: 'app-release',
-        //   buildId:'1',
-         //  apkVersion: '1.0',
-        //   appPlatform:'fir'
-      //     )
-     // }
       options {//超时了，就会终止这次的构建  options还有其他配置，比如失败后重试整个pipeline的次数：retry(3)
         timeout(time: 1, unit: 'HOURS')
       }
 
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
+        //可以根据分支配置构建参数   最好的方式时从一个json文件中获取对应的配置文件。再设置给构建脚本的local
 
         stage('Build master APK') {
 
@@ -28,7 +18,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-              bat './gradlew clean assembleRelease'
+              bat './gradlew clean assembleGoogleRelease'
             }
             post {
               //always 总是运行，无论成功、失败还是其他状态。
@@ -52,15 +42,16 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assembleGoogleDebug'
-
+                bat './gradlew clean assemble"${market}"Debug'
             }
             post {
                 failure {
                     echo "Build dev APK Failure!"
+                    echo "BuildParam "${buildNum}" "
                 }
                 success {
                     echo "Build dev APK Success!"
+                    echo "BuildParam "${buildNum}" "
                 }
             }
         }
