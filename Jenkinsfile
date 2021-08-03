@@ -47,11 +47,14 @@ pipeline {
             post {
                 failure {
                     echo "Build dev APK Failure!"
-                    echo "BuildParam "${buildNum}" "
                 }
                 success {
                     echo "Build dev APK Success!"
-                    echo "BuildParam "${buildNum}" "
+
+                }
+
+                always{
+                  echo "BuildParam "${buildNum}" "
                 }
             }
         }
