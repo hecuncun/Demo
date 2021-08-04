@@ -54,10 +54,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-              script{
-                bat './gradlew clean assemble'${MARKET}'Debug'
-              }
-
+                bat './gradlew clean assemble${MARKET}Debug'
             }
             post {
                 failure {
