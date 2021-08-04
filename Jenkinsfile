@@ -31,7 +31,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-              bat './gradlew clean assemble${MARKET}Release'
+              bat './gradlew clean assemble'${MARKET}'Release'
             }
             post {
               //always 总是运行，无论成功、失败还是其他状态。
@@ -54,7 +54,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assemble${MARKET}Debug'
+                bat './gradlew clean assemble'${MARKET}'Debug'
             }
             post {
                 failure {
