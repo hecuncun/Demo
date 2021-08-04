@@ -24,7 +24,7 @@ pipeline {
                  println MARKET
                  println APP_VERSION
                  println BUILD_TYPE
-                 println "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+                 println "./gradlew clean assemble ${MARKET} ${BUILD_TYPE}"
                 }
              }
         }
