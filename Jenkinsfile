@@ -14,6 +14,7 @@ pipeline {
       environment{//一组全局的环境变量键值对
          MARKET = loadValuesYaml('market')
          APP_VERSION = loadValuesYaml('appVersion')
+         BUILD_TYPE = loadValuesYaml('buildType')
       }
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
         //可以根据分支配置构建参数   最好的方式时从一个yaml文件中获取对应的配置文件
@@ -54,7 +55,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assemble${MARKET}Debug'
+                bat "./gradlew clean assemble${MARKET}Debug"
             }
             post {
                 failure {
