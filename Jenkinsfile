@@ -1,4 +1,7 @@
-
+def loadValuesYaml(x){
+  def valuesYaml = readYaml (file: 'config.yaml')
+  return valuesYaml[x];
+}
 pipeline {
       //agent节点   多个构建从节点   有的只配置了Android环境用于执行Android项目构建，有的只能执行iOS项目构建，有的是用于执行Go项目
       //那这么多不同的节点怎么管理及分配呢？
@@ -10,6 +13,7 @@ pipeline {
       }
       environment{//一组全局的环境变量键值对
          market = 'Google'
+         APP_VERSION= loadValuesYaml('appVersion')
       }
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
         //可以根据分支配置构建参数   最好的方式时从一个json文件中获取对应的配置文件。再设置给构建脚本的local
@@ -17,9 +21,8 @@ pipeline {
             steps{
                 script{
                 echo "market is ${market}"
-                println market
-
-
+                 println market
+                 println APP_VERSION
                 }
 
              }
