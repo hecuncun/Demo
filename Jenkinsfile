@@ -106,10 +106,10 @@ pipeline {
         stage('Publish'){
           steps{
            // bat './gradlew debugToFir'
-           script{
+
             //执行Python脚本
-               bat "${pythonPath} upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}"
-            }
+          bat "${pythonPath} upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}"
+
           }
           post {
              failure {
