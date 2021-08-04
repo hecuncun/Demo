@@ -32,7 +32,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-              bat './gradlew clean assembleGoogleRelease'
+              bat './gradlew clean assemble${market}Release'
             }
             post {
               //always 总是运行，无论成功、失败还是其他状态。
