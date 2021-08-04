@@ -12,30 +12,26 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
       }
       environment{//一组全局的环境变量键值对
-         market = 'Google'
-         APP_VERSION= loadValuesYaml('appVersion')
+         MARKET = loadValuesYaml('market')
+         APP_VERSION = loadValuesYaml('appVersion')
       }
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
-        //可以根据分支配置构建参数   最好的方式时从一个json文件中获取对应的配置文件。再设置给构建脚本的local
-         stage('readJson'){
+        //可以根据分支配置构建参数   最好的方式时从一个yaml文件中获取对应的配置文件
+         stage('readYaml'){
             steps{
                 script{
-                echo "market is ${market}"
-                 println market
+                 println MARKET
                  println APP_VERSION
                 }
-
              }
-
-
         }
-        stage('Build master APK') {
 
+        stage('Build master APK') {
             when {
                 branch 'master'
             }
             steps {
-              bat './gradlew clean assemble${market}Release'
+              bat './gradlew clean assemble${MARKET}Release'
             }
             post {
               //always 总是运行，无论成功、失败还是其他状态。
@@ -44,7 +40,6 @@ pipeline {
               //success 当前成功时运行
               // unstable 不稳定状态时运行
               // aborted 被终止时运行。
-
                 failure {
                     echo "Build master APK Failure!"
                 }
@@ -59,7 +54,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat './gradlew clean assembleGoogleRelease'
+                bat './gradlew clean assemble${MARKET}Debug'
             }
             post {
                 failure {
