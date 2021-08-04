@@ -15,6 +15,17 @@ pipeline {
          MARKET = loadValuesYaml('market')
          APP_VERSION = loadValuesYaml('appVersion')
          BUILD_TYPE = loadValuesYaml('buildType')
+
+             pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
+             upUrl = "http://api.bq04.com/apps"
+             appName = "jenkinsDemo"
+             bundleId = project.android.defaultConfig.applicationId
+             verName = project.android.defaultConfig.versionName
+             apiToken = "d319ac25103e1f6d03dc4fbf545ad8a7"
+             iconPath = "app/src/main/res/mipmap-hdpi/ic_launcher.png"
+             apkPath = "app/build/outputs/apk/google/debug/app-google-debug.apk"
+             buildNumber = project.android.defaultConfig.versionCode
+             changeLog = "版本更新日志"
       }
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
         //可以根据分支配置构建参数   最好的方式时从一个yaml文件中获取对应的配置文件
@@ -96,31 +107,9 @@ pipeline {
           steps{
            // bat './gradlew debugToFir'
            script{
-                       def upUrl = "http://api.bq04.com/apps"
-                       def appName = "jenkinsDemo"
-                       def bundleId = project.android.defaultConfig.applicationId
-                       def verName = project.android.defaultConfig.versionName
-                       def apiToken = "d319ac25103e1f6d03dc4fbf545ad8a7"
-                       def iconPath = "app/src/main/res/mipmap-hdpi/ic_launcher.png"
-                       def apkPath = "app/build/outputs/apk/google/debug/app-google-debug.apk"
-                       def buildNumber = project.android.defaultConfig.versionCode
-                       def changeLog = "版本更新日志"
-                       //执行Python脚本
-                       def pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
-                       def process = "${pythonPath} upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
-                       println("开始上传至fir")
-                       //获取Python脚本日志，便于出错调试
-                       ByteArrayOutputStream result = new ByteArrayOutputStream()
-                       def inputStream = process.getInputStream()
-                       byte[] buffer = new byte[1024]
-                       int length
-                       while ((length = inputStream.read(buffer)) != -1) {
-                           result.write(buffer, 0, length)
-                       }
-                       println(result.toString("UTF-8"))
-                       println "上传结束 "
-
-             }
+            //执行Python脚本
+               bat "${pythonPath} upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}"
+            }
           }
           post {
              failure {
