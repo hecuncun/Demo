@@ -19,12 +19,12 @@ pipeline {
              pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
              upUrl = "http://api.bq04.com/apps"
              appName = "jenkinsDemo"
-             bundleId = project.android.defaultConfig.applicationId
-             verName = project.android.defaultConfig.versionName
+             bundleId = "com.example.demo"
+             verName = "1.0"
              apiToken = "d319ac25103e1f6d03dc4fbf545ad8a7"
              iconPath = "app/src/main/res/mipmap-hdpi/ic_launcher.png"
              apkPath = "app/build/outputs/apk/google/debug/app-google-debug.apk"
-             buildNumber = project.android.defaultConfig.versionCode
+             buildNumber = 1
              changeLog = "版本更新日志"
       }
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
