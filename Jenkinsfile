@@ -1,10 +1,4 @@
 import groovy.json.JsonSlurperClassic
-node {
-
-    def jsonString = readFile(file: 'config.json')
-    // 解析 JSON 字符串为对象
-    def dataObject = new JsonSlurperClassic().parseText(jsonString)
-}
 pipeline {
       //agent节点   多个构建从节点   有的只配置了Android环境用于执行Android项目构建，有的只能执行iOS项目构建，有的是用于执行Go项目
       //那这么多不同的节点怎么管理及分配呢？
@@ -17,9 +11,12 @@ pipeline {
 
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
         //可以根据分支配置构建参数   最好的方式时从一个json文件中获取对应的配置文件。再设置给构建脚本的local
-         stage('read-yaml'){
+         stage('readJson'){
             steps{
                 script{
+                       def jsonString = readFile(file: 'config.json')
+                    // 解析 JSON 字符串为对象
+                       def dataObject = new JsonSlurperClassic().parseText(jsonString)
                        echo "get params ${dataObject.market}"
 
                        println jsonString
