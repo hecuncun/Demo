@@ -23,6 +23,7 @@ pipeline {
                 script{
                  println MARKET
                  println APP_VERSION
+                 println BUILD_TYPE
                 }
              }
         }
@@ -55,7 +56,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat "./gradlew clean assemble${MARKET}Debug"
+                bat "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
             }
             post {
                 failure {
