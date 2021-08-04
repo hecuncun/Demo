@@ -4,7 +4,6 @@ node {
     def jsonString = readFile(file: 'config.json')
     // 解析 JSON 字符串为对象
     def dataObject = new JsonSlurperClassic().parseText(jsonString)
-
 }
 pipeline {
       //agent节点   多个构建从节点   有的只配置了Android环境用于执行Android项目构建，有的只能执行iOS项目构建，有的是用于执行Go项目
