@@ -11,7 +11,7 @@ pipeline {
       options {//超时了，就会终止这次的构建  options还有其他配置，比如失败后重试整个pipeline的次数：retry(3)
         timeout(time: 1, unit: 'HOURS')
       }
-      environment{//一组全局的环境变量键值对
+      environment{//一组全局的环境变量键值对  用在stages 使用在“调用方式为${MARKET}”  注意只能在“”中识别
          MARKET = loadValuesYaml('market')
          APP_VERSION = loadValuesYaml('appVersion')
          BUILD_TYPE = loadValuesYaml('buildType')
@@ -33,7 +33,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-              bat './gradlew clean assembleGoogleRelease'
+              bat "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
             }
             post {
               //always 总是运行，无论成功、失败还是其他状态。
@@ -94,7 +94,33 @@ pipeline {
 
         stage('Publish'){
           steps{
-             bat './gradlew debugToFir'
+           // bat './gradlew debugToFir'
+           script{
+                       def upUrl = "http://api.bq04.com/apps"
+                       def appName = "jenkinsDemo"
+                       def bundleId = project.android.defaultConfig.applicationId
+                       def verName = project.android.defaultConfig.versionName
+                       def apiToken = "d319ac25103e1f6d03dc4fbf545ad8a7"
+                       def iconPath = "app/src/main/res/mipmap-hdpi/ic_launcher.png"
+                       def apkPath = "app/build/outputs/apk/google/debug/app-google-debug.apk"
+                       def buildNumber = project.android.defaultConfig.versionCode
+                       def changeLog = "版本更新日志"
+                       //执行Python脚本
+                       def pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
+                       def process = "${pythonPath} upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
+                       println("开始上传至fir")
+                       //获取Python脚本日志，便于出错调试
+                       ByteArrayOutputStream result = new ByteArrayOutputStream()
+                       def inputStream = process.getInputStream()
+                       byte[] buffer = new byte[1024]
+                       int length
+                       while ((length = inputStream.read(buffer)) != -1) {
+                           result.write(buffer, 0, length)
+                       }
+                       println(result.toString("UTF-8"))
+                       println "上传结束 "
+
+             }
           }
           post {
              failure {
