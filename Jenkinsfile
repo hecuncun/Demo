@@ -35,6 +35,7 @@ pipeline {
                  	   selenium_test = load env.WORKSPACE + "/editFile.groovy"
                  	   config_file = env.WORKSPACE + "/local.properties"
                  	   try{
+                 	       selenium_test.setKeyValue2("market", "${MARKET}", config_file)
                  	       selenium_test.setKeyValue2("build.module", "${BUILD_MODULE}", config_file)
                  	       selenium_test.setKeyValue2("build.environment", "${BUILD_ENVIRONMENT}", config_file)
                  	       selenium_test.setKeyValue2("compileSensorsSdk", "${COMPILE_SENSORS_SDK}", config_file)
