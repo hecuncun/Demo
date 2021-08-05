@@ -32,18 +32,18 @@ pipeline {
         stage('set local properties'){
           steps{
               script{
-                 	   selenium_test = load env.WORKSPACE + "/editFile.groovy"
+                 	   editFile = load env.WORKSPACE + "/editFile.groovy"
                  	   config_file = env.WORKSPACE + "/local.properties"
                  	   try{
-                 	       selenium_test.setKeyValue2("market", "${MARKET}", config_file)
-                 	       selenium_test.setKeyValue2("build.module", "${BUILD_MODULE}", config_file)
-                 	       selenium_test.setKeyValue2("build.environment", "${BUILD_ENVIRONMENT}", config_file)
-                 	       selenium_test.setKeyValue2("compileSensorsSdk", "${COMPILE_SENSORS_SDK}", config_file)
+                 	       editFile.setKeyValue("market", "${MARKET}", config_file)
+                 	       editFile.setKeyValue("build.module", "${BUILD_MODULE}", config_file)
+                 	       editFile.setKeyValue("build.environment", "${BUILD_ENVIRONMENT}", config_file)
+                 	       editFile.setKeyValue("compileSensorsSdk", "${COMPILE_SENSORS_SDK}", config_file)
                  	       file_content = readFile config_file
                            println file_content
                  	       }catch (Exception e) {
                  	           error("Error editFile :" + e)
-                 	        }
+                 	       }
               }
           }
         }
