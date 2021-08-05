@@ -73,7 +73,7 @@ android {
 
 
 
-    task debugToFir {
+    task apkToFir {
         //dependsOn 'assembleDebug'
         doLast {
             //def upUrl = "http://api.fir.im/apps"
