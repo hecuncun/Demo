@@ -29,14 +29,16 @@ pipeline {
         stage('set local properties'){
           steps{
               script{
-                 	   selenium_test = load env.WORKSPACE + "/selenium.groovy"
+                 	   selenium_test = load env.WORKSPACE + "/editFile.groovy"
                  	   config_file = env.WORKSPACE + "/local.properties"
                  	   try{
-                 	       selenium_test.setKeyValue2("build.module", "nc", config_file)
+                 	       selenium_test.setKeyValue2("build.module", "chk", config_file)
+                 	       selenium_test.setKeyValue2("build.environment", "test", config_file)
+                 	       selenium_test.setKeyValue2("compileSensorsSdk", "true", config_file)
                  	       file_content = readFile config_file
-                            println file_content
+                           println file_content
                  	       }catch (Exception e) {
-                 	           error("Error met:" + e)
+                 	           error("Error editFile :" + e)
                  	        }
               }
           }
