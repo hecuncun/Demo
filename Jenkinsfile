@@ -29,8 +29,8 @@ pipeline {
         stage('set local properties'){
           steps{
               script{
-                 	   selenium_test = load env.WORKSPACE + "\\selenium.groovy"
-                 	   config_file = env.WORKSPACE + "local.properties"
+                 	   selenium_test = load env.WORKSPACE + "/selenium.groovy"
+                 	   config_file = env.WORKSPACE + "/local.properties"
                  	   try{
                  	       selenium_test.setKeyValue2("build.module", "nc", config_file)
                  	       file_content = readFile config_file
