@@ -52,4 +52,4 @@ def setKeyValue2(key, value, file_path) {
 
     writeFile file: file_path, text: file_content_new, encoding: "UTF-8"
 }
-return this;
+return this

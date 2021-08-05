@@ -14,6 +14,9 @@ pipeline {
       environment{//一组全局的环境变量键值对  用在stages 使用在“调用方式为${MARKET}”  注意只能在“ ”中识别
          MARKET = loadValuesYaml('market')
          BUILD_TYPE = loadValuesYaml('buildType')
+         BUILD_ENVIRONMENT = loadValuesYaml('build.environment')
+         BUILD_MODULE = loadValuesYaml('build.module')
+         COMPILE_SENSORS_SDK = loadValuesYaml('compileSensorsSdk')
       }
       stages {//这里我们已经有默认的检出代码了  开始执行构建和发布
         //可以根据分支配置构建参数   最好的方式时从一个yaml文件中获取对应的配置文件
@@ -32,9 +35,9 @@ pipeline {
                  	   selenium_test = load env.WORKSPACE + "/editFile.groovy"
                  	   config_file = env.WORKSPACE + "/local.properties"
                  	   try{
-                 	       selenium_test.setKeyValue2("build.module", "chk", config_file)
-                 	       selenium_test.setKeyValue2("build.environment", "test", config_file)
-                 	       selenium_test.setKeyValue2("compileSensorsSdk", "true", config_file)
+                 	       selenium_test.setKeyValue2("build.module", "${BUILD_MODULE}", config_file)
+                 	       selenium_test.setKeyValue2("build.environment", "${BUILD_ENVIRONMENT}", config_file)
+                 	       selenium_test.setKeyValue2("compileSensorsSdk", "${COMPILE_SENSORS_SDK}", config_file)
                  	       file_content = readFile config_file
                            println file_content
                  	       }catch (Exception e) {
