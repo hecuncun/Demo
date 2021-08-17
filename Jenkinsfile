@@ -53,7 +53,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-              bat "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+              sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
             }
             post {
                 failure {
@@ -70,7 +70,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
-                bat "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
             }
             post {
                 failure {
@@ -105,7 +105,7 @@ pipeline {
 
         stage('Publish'){//发布fir.im
           steps{
-            bat './gradlew apkToFir'
+            sh './gradlew apkToFir'
           }
           post {
              failure {
