@@ -53,6 +53,7 @@ pipeline {
                 branch 'master'
             }
             steps {
+              sh "chmod +x gradlew"
               sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
             }
             post {
@@ -70,6 +71,7 @@ pipeline {
                 branch 'dev-hcc'
             }
             steps {
+                sh "chmod +x gradlew"
                 sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
             }
             post {
@@ -105,6 +107,7 @@ pipeline {
 
         stage('Publish'){//发布fir.im
           steps{
+            sh "chmod +x gradlew"
             sh './gradlew apkToFir'
           }
           post {
