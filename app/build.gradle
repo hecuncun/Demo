@@ -87,7 +87,8 @@ android {
             def buildNumber = project.android.defaultConfig.versionCode
             def changeLog = "版本更新日志"
             //执行Python脚本
-            def pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
+            //def pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
+            def pythonPath = "/usr/bin/python3"
             def process = "${pythonPath} upToFir.py ${upUrl} ${appName} ${bundleId} ${verName} ${apiToken} ${iconPath} ${apkPath} ${buildNumber} ${changeLog}".execute()
             println("开始上传至fir")
             //获取Python脚本日志，便于出错调试

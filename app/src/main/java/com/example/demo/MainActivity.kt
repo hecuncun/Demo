@@ -23,5 +23,6 @@ class MainActivity : AppCompatActivity() {
         msg.what = 0
         msg.obj = "msg1"
         handler.sendMessage(msg)
+        val set =HashSet<Int>()
     }
 }
