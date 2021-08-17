@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         @SuppressLint("HandlerLeak")
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-
         }
     }
 
