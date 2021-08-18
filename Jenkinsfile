@@ -25,9 +25,15 @@ pipeline {
                 script{
                  println MARKET
                  println BUILD_TYPE
-                 println env.APP_NAME
+                 println env.APP_NAME   //在jenkins 配置的全局变量展示
                 }
              }
+        }
+
+        stage('参数传递给gradle任务'){
+          steps{
+                 sh gradle -DfirstParam=${env.APP_NAME}-DsecondParam=${env.KEY} -DthirdParam=${env.PWD} clean build clean build
+          }
         }
 
         stage('set local properties'){

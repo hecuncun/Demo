@@ -19,6 +19,15 @@ ext {
     //打包前需要设置为false
     debug = prop.getProperty('build.environment')?: "test"
     buildNum = prop.getProperty('build.num') ?: "debug"
+
+    def firstParam = System.getProperty("firstParam")
+    def secondParam = System.getProperty("secondParam")
+    def thirdParam = System.getProperty("thirdParam")
+
+    println("firstParam: $firstParam")
+    println("secondParam: $secondParam")
+    println("thirdParam: $thirdParam")
+
 }
 android {
     compileSdkVersion 30
