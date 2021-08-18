@@ -10,7 +10,16 @@ enum SupportedPlatformBillings {
         this.channel = channel
     }
 }
-
+ext {
+    def localProp = new File(rootDir, 'local.properties')
+    prop = new Properties()
+    localProp.withInputStream {
+        prop.load(it)
+    }
+    //打包前需要设置为false
+    debug = prop.getProperty('build.environment')?: "test"
+    buildNum = prop.getProperty('build.num') ?: "debug"
+}
 android {
     compileSdkVersion 30
 

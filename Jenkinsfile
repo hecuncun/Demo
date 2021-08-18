@@ -25,6 +25,7 @@ pipeline {
                 script{
                  println MARKET
                  println BUILD_TYPE
+                 println env.APP_NAME
                 }
              }
         }
