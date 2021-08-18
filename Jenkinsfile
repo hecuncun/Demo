@@ -34,7 +34,7 @@ pipeline {
           steps{
            sh "chmod +x gradlew"
            sh """
-                 ./gradlew -DfirstParam=${env.APP_NAME}-DsecondParam=${env.KEY} -DthirdParam=${env.PWD} clean build clean build
+                 ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD}
            sh """
           }
         }
