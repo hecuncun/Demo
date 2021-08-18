@@ -32,9 +32,10 @@ pipeline {
 
         stage('参数传递给gradle任务'){
           steps{
-          sh """
-                 gradle -DfirstParam=${env.APP_NAME}-DsecondParam=${env.KEY} -DthirdParam=${env.PWD} clean build clean build
-          sh """
+           sh "chmod +x gradlew"
+           sh """
+                 ./gradlew -DfirstParam=${env.APP_NAME}-DsecondParam=${env.KEY} -DthirdParam=${env.PWD} clean build clean build
+           sh """
           }
         }
 
