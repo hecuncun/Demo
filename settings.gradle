@@ -5,10 +5,15 @@ ext {
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
-    def isJenkins = System.getProperty("isJenkins")
+    def isJenkins = System.getProperty("isJenkinsParam")
     println("setting  firstParam: $firstParam")
     println("setting  secondParam: $secondParam")
     println("setting  thirdParam: $thirdParam")
-    println("setting  isJenkins: $isJenkins")
+    if("true"==isJenkins){
+        println("jenkins setting  isJenkins: $isJenkins")
+    }else {
+        println("local setting  isJenkins: $isJenkins")
+    }
+
 
 }

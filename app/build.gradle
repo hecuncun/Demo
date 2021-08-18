@@ -23,7 +23,7 @@ ext {
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
-    def isJenkins = System.getProperty("isJenkins")
+    def isJenkins = System.getProperty("isJenkinsParam")
 
     println("build firstParam: $firstParam")
     println("build secondParam: $secondParam")
