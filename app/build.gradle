@@ -29,7 +29,7 @@ ext {
     println("build secondParam: $secondParam")
     println("build thirdParam: $thirdParam")
     if("true"==isJenkins){
-        println("build isJenkins: $isJenkins")
+        println("jenkins build isJenkins: $isJenkins")
     }else {
         println("local isJenkins: $isJenkins")
     }
