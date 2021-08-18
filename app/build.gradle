@@ -23,10 +23,17 @@ ext {
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
+    def isJenkins = System.getProperty("isJenkins")
 
-    println("firstParam: $firstParam")
-    println("secondParam: $secondParam")
-    println("thirdParam: $thirdParam")
+    println("build firstParam: $firstParam")
+    println("build secondParam: $secondParam")
+    println("build thirdParam: $thirdParam")
+    if("true"==isJenkins){
+        println("build isJenkins: $isJenkins")
+    }else {
+        println("local isJenkins: $isJenkins")
+    }
+
 
 }
 android {
