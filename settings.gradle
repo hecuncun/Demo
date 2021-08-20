@@ -11,7 +11,6 @@ enum Modules {
 }
 
 ext {
-
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")

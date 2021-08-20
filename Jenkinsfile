@@ -92,7 +92,7 @@ pipeline {
              }
              steps {
                   sh "chmod +x gradlew"
-                  sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+                  sh "./gradlew assemble${MARKET}${BUILD_TYPE}"
              }
               post {
                    failure {
@@ -110,7 +110,7 @@ pipeline {
            }
            steps {
                   sh "chmod +x gradlew"
-                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+                   sh "./gradlew  assemble${MARKET}${BUILD_TYPE}"
            }
            post {
                   failure {
