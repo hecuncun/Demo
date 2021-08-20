@@ -25,8 +25,18 @@ pipeline {
                 script{
                  println MARKET
                  println BUILD_TYPE
+                 println env.APP_NAME   //在jenkins 配置的全局变量展示
                 }
              }
+        }
+
+        stage('参数传递给gradle任务'){
+          steps{
+           sh "chmod +x gradlew"
+           sh """
+                 ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}
+           sh """
+          }
         }
 
         stage('set local properties'){

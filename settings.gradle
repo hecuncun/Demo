@@ -1,2 +1,19 @@
 rootProject.name = "Demo"
 include ':app'
+ext {
+    //根据local.properties里面的isGoogle设置是google 版本还是huawei版本
+    def firstParam = System.getProperty("firstParam")
+    def secondParam = System.getProperty("secondParam")
+    def thirdParam = System.getProperty("thirdParam")
+    def isJenkins = System.getProperty("isJenkinsParam")
+    println("setting  firstParam: $firstParam")
+    println("setting  secondParam: $secondParam")
+    println("setting  thirdParam: $thirdParam")
+    if("true"==isJenkins){
+        println("jenkins setting  isJenkins: $isJenkins")
+    }else {
+        println("local setting  isJenkins: $isJenkins")
+    }
+
+
+}
