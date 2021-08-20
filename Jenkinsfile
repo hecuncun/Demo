@@ -67,8 +67,10 @@ pipeline {
 //           }
 //         }
 
-        stage('Build APK') {
-         if (env.BRANCH_NAME == 'master'){
+        stage('Build master APK') {
+            when{
+                   branch 'master'
+                }
             steps {
                sh "chmod +x gradlew"
                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
@@ -81,84 +83,62 @@ pipeline {
                     echo "Build master APK Success!"
                 }
             }
-         }else if(env.BRANCH_NAME == 'dev-hcc'){
+        }
 
 
-         }else if(env.BRANCH_NAME == 'dev-test'){
-               steps {
+        stage('Build dev-hcc APK') {
+             when{
+                 branch 'dev-hcc'
+             }
+             steps {
                   sh "chmod +x gradlew"
                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
-                 }
-            post {
-                 failure {
-                 echo "Build master APK Failure!"
-                  }
-                 success {
-                    echo "Build master APK Success!"
-                }
-            }
-         }else{
+             }
+              post {
+                   failure {
+                       echo "Build master APK Failure!"
+                   }
 
-
-         }
-
-
-
-//             when {
-//                 branch 'master'
-//             }
-//             steps {
-//               sh "chmod +x gradlew"
-//               sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
-//             }
-//             post {
-//                 failure {
-//                     echo "Build master APK Failure!"
-//                 }
-//                 success {
-//                     echo "Build master APK Success!"
-//                 }
-//             }
-        }
-
-//         stage('Build dev APK') {
-//             when {
-//                 branch 'dev-hcc'
-//             }
-//             steps {
-//                 sh "chmod +x gradlew"
-//                 sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
-//             }
-//             post {
-//                 failure {
-//                     echo "Build dev APK Failure!"
-//                 }
-//                 success {
-//                     echo "Build dev APK Success!"
-//
-//                 }
-//             }
-//         }
-
-        stage('ArchiveAPK') {//存储的apk
-        if(env.BRANCH_NAME == 'dev-test'){
-             steps {
-                        archiveArtifacts(artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true, onlyIfSuccessful: true)
+                    success {
+                        echo "Build master APK Success!"
                     }
-                    post {
-                        failure {
-                            echo "Archive Failure!"
-                        }
-                        success {
-                            echo "Archive Success!"
-                        }
               }
-        }else{
+       }
+       stage('Build dev-test APK') {
+           when{
+                branch 'dev-hcc'
+           }
+           steps {
+                  sh "chmod +x gradlew"
+                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+           }
+           post {
+                  failure {
+                     echo "Build master APK Failure!"
+                  }
+                  success {
+                      echo "Build master APK Success!"
+                  }
+           }
+       }
 
-            echo "${env.BRANCH_NAME}不执行ArchiveAPK流程"
-        }
+       stage('ArchiveAPK') {//存储的apk
+             when{
+                   branch 'dev-test'
+             }
 
-        }
+             steps {
+                archiveArtifacts(artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true, onlyIfSuccessful: true)
+             }
+             post {
+                  failure {
+                          echo "Archive Failure!"
+                  }
+                  success {
+                            echo "Archive Success!"
+                  }
+              }
+       }
 
         stage('Report') {//显示提交信息
             steps {
@@ -167,23 +147,21 @@ pipeline {
         }
 
         stage('Publish'){//发布fir.im
-          if(env.BRANCH_NAME == 'dev-test'){
-                  steps{
-                       sh "chmod +x gradlew"
-                       sh './gradlew apkToFir'
-                  }
-                  post {
-                       failure {
-                          echo "Publish Failure!"
-                       }
-                       success {
-                           echo "Publish Success!"
-                       }
-                  }
-          }else{
-            echo "${env.BRANCH_NAME}不执行发布流程"
+          when{
+              branch 'dev-test'
           }
-
+          steps{
+                sh "chmod +x gradlew"
+                sh './gradlew apkToFir'
+          }
+          post {
+                  failure {
+                      echo "Publish Failure!"
+                  }
+                  success {
+                        echo "Publish Success!"
+                  }
+          }
         }
     }
 }
