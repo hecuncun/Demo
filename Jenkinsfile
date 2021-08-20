@@ -92,10 +92,11 @@ pipeline {
              }
              steps {
                   sh "chmod +x gradlew"
-                   sh """
-                                   ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
-                   sh """
                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+                  sh """
+                                   ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
+                  sh """
+
              }
               post {
                    failure {
@@ -114,10 +115,11 @@ pipeline {
            }
            steps {
                   sh "chmod +x gradlew"
+                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
                    sh """
                                    ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
                    sh """
-                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+
            }
            post {
                   failure {
