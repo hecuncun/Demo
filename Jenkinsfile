@@ -39,14 +39,14 @@ pipeline {
              }
         }
 
-        stage('参数传递给gradle任务'){
-          steps{
-           sh "chmod +x gradlew"
-           sh """
-                 ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
-           sh """
-          }
-        }
+//         stage('参数传递给gradle任务'){
+//           steps{
+//            sh "chmod +x gradlew"
+//            sh """
+//                  ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
+//            sh """
+//           }
+//         }
 
 //         stage('set local properties'){
 //           steps{
@@ -92,7 +92,10 @@ pipeline {
              }
              steps {
                   sh "chmod +x gradlew"
-                  sh "./gradlew assemble${MARKET}${BUILD_TYPE}"
+                   sh """
+                                   ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
+                   sh """
+                  sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
              }
               post {
                    failure {
@@ -104,13 +107,17 @@ pipeline {
                     }
               }
        }
+
        stage('Build dev-test APK') {
            when{
                 branch 'dev-test'
            }
            steps {
                   sh "chmod +x gradlew"
-                   sh "./gradlew  assemble${MARKET}${BUILD_TYPE}"
+                   sh """
+                                   ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS} -DbuildModule=${env.BUILD_MODULE}
+                   sh """
+                   sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
            }
            post {
                   failure {
