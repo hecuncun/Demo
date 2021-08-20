@@ -67,23 +67,23 @@ pipeline {
 //           }
 //         }
 
-        stage('Build master APK') {
-            when{
-                   branch 'master'
-                }
-            steps {
-               sh "chmod +x gradlew"
-               sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
-             }
-            post {
-                failure {
-                    echo "Build master APK Failure!"
-                }
-                success {
-                    echo "Build master APK Success!"
-                }
-            }
-        }
+//         stage('Build master APK') {
+//             when{
+//                    branch 'master'
+//                 }
+//             steps {
+//                sh "chmod +x gradlew"
+//                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+//              }
+//             post {
+//                 failure {
+//                     echo "Build master APK Failure!"
+//                 }
+//                 success {
+//                     echo "Build master APK Success!"
+//                 }
+//             }
+//         }
 
 
         stage('Build dev-hcc APK') {
@@ -106,7 +106,7 @@ pipeline {
        }
        stage('Build dev-test APK') {
            when{
-                branch 'dev-hcc'
+                branch 'dev-test'
            }
            steps {
                   sh "chmod +x gradlew"
