@@ -27,11 +27,11 @@ ext {
     }else {
         println("local setting jenkins ==  $isJenkins")
         //根据local.properties里面的isGoogle设置是google 版本还是huawei版本
-        def localProp = new File(rootDir, 'local.properties')
-        def prop = new Properties()
-        localProp.withInputStream {
-            prop.load(it)
-        }
+//        def localProp = new File(rootDir, 'local.properties')
+//        def prop = new Properties()
+//        localProp.withInputStream {
+//            prop.load(it)
+//        }
     }
 
 
