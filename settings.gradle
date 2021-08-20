@@ -1,18 +1,35 @@
 rootProject.name = "Demo"
 include ':app'
+
+enum Modules {
+    HRXS("hrxs"), LegendNovel("legendnovel"), CHK("chk"), TeSeYanQing("teseyanqing"),XiaoShuoDaQuan("xiaoshuodaquan"),
+    English("english"), Indonesia("Indonesia"),FreeNovel("freenovel"),PopNovel("popnovel")
+    public String moduleName
+    Modules(String moduleName) {
+        this.moduleName = moduleName
+    }
+}
+
 ext {
     //根据local.properties里面的isGoogle设置是google 版本还是huawei版本
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
     def isJenkins = System.getProperty("isJenkinsParam")
+    def buildModule = System.getProperty("buildModule")
     println("setting  firstParam: $firstParam")
     println("setting  secondParam: $secondParam")
     println("setting  thirdParam: $thirdParam")
+    println("build buildModule: $buildModule")
     if("true"==isJenkins){
         println("jenkins setting  isJenkins: $isJenkins")
+        println("module $buildModule")
     }else {
-        println("local setting  isJenkins: $isJenkins")
+        def localProp = new File(rootDir, 'local.properties')
+        def prop = new Properties()
+        localProp.withInputStream {
+            prop.load(it)
+        }
     }
 
 

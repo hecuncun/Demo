@@ -11,26 +11,27 @@ enum SupportedPlatformBillings {
     }
 }
 ext {
-    def localProp = new File(rootDir, 'local.properties')
-    prop = new Properties()
-    localProp.withInputStream {
-        prop.load(it)
-    }
-    //打包前需要设置为false
-    debug = prop.getProperty('build.environment')?: "test"
-    buildNum = prop.getProperty('build.num') ?: "debug"
-
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
     def isJenkins = System.getProperty("isJenkinsParam")
+    def buildModule = System.getProperty("buildModule")
 
     println("build firstParam: $firstParam")
     println("build secondParam: $secondParam")
     println("build thirdParam: $thirdParam")
+    println("build buildModule: $buildModule")
     if("true"==isJenkins){
         println("jenkins build isJenkins: $isJenkins")
     }else {
+        def localProp = new File(rootDir, 'local.properties')
+        prop = new Properties()
+        localProp.withInputStream {
+            prop.load(it)
+        }
+        //打包前需要设置为false
+        debug = prop.getProperty('build.environment')?: "test"
+        buildNum = prop.getProperty('build.num') ?: "debug"
         println("local isJenkins: $isJenkins")
     }
 
@@ -58,6 +59,11 @@ android {
             storePassword '123456'
         }
     }
+
+
+
+
+
 
     buildTypes {
         release {

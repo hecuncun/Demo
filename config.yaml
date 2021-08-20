@@ -1,12 +1,11 @@
+#声明开发的时候需要编译的模块
+#hrxs legendnovel chk teseyanqing xiaoshuodaquan
+#english(包含novelCat foxNovel)  Indonesia freenovel popnovel
+build.module: chk
 #google   huawei
 market: Google
 #Debug   Release
 buildType: Debug
 #product(正式环境) stage(灰度环境) test(测试环境)
 build.environment: test
-#声明开发的时候需要编译的模块
-#hrxs legendnovel chk teseyanqing xiaoshuodaquan
-#english(包含novelCat foxNovel)  Indonesia freenovel popnovel
-build.module: chk
-#神策打点
-compileSensorsSdk: true
+
