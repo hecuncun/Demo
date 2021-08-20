@@ -32,7 +32,7 @@ ext {
         //打包前需要设置为false
         debug = prop.getProperty('build.environment')?: "test"
         buildNum = prop.getProperty('build.num') ?: "debug"
-        println("local isJenkins: $isJenkins")
+        println("build local isJenkins: $isJenkins")
     }
 
 

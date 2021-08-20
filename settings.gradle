@@ -11,7 +11,7 @@ enum Modules {
 }
 
 ext {
-    //根据local.properties里面的isGoogle设置是google 版本还是huawei版本
+
     def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
@@ -20,11 +20,14 @@ ext {
     println("setting  firstParam: $firstParam")
     println("setting  secondParam: $secondParam")
     println("setting  thirdParam: $thirdParam")
-    println("build buildModule: $buildModule")
+    println("setting  isJenkins: $isJenkins")
+    println("setting  buildModule: $buildModule")
     if("true"==isJenkins){
         println("jenkins setting  isJenkins: $isJenkins")
-        println("module $buildModule")
+        println("jenkins module $buildModule")
     }else {
+        println("local setting jenkins ==  $isJenkins")
+        //根据local.properties里面的isGoogle设置是google 版本还是huawei版本
         def localProp = new File(rootDir, 'local.properties')
         def prop = new Properties()
         localProp.withInputStream {
