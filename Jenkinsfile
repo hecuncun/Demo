@@ -30,33 +30,24 @@ pipeline {
              }
         }
 
-        stage('参数传递给gradle任务'){
-          steps{
-           sh "chmod +x gradlew"
-           sh """
-                 ./gradlew -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}
-           sh """
-          }
-        }
-
-        stage('set local properties'){
-          steps{
-              script{
-                 	   editFile = load env.WORKSPACE + "/editFile.groovy"
-                 	   config_file = env.WORKSPACE + "/local.properties"
-                 	   try{
-                 	       editFile.setKeyValue("market", "${MARKET}", config_file)
-                 	       editFile.setKeyValue("build.module", "${BUILD_MODULE}", config_file)
-                 	       editFile.setKeyValue("build.environment", "${BUILD_ENVIRONMENT}", config_file)
-                 	       editFile.setKeyValue("compileSensorsSdk", "${COMPILE_SENSORS_SDK}", config_file)
-                 	       file_content = readFile config_file
-                           println file_content
-                 	       }catch (Exception e) {
-                 	           error("Error editFile :" + e)
-                 	       }
-              }
-          }
-        }
+//         stage('set local properties'){
+//           steps{
+//               script{
+//                  	   editFile = load env.WORKSPACE + "/editFile.groovy"
+//                  	   config_file = env.WORKSPACE + "/local.properties"
+//                  	   try{
+//                  	       editFile.setKeyValue("market", "${MARKET}", config_file)
+//                  	       editFile.setKeyValue("build.module", "${BUILD_MODULE}", config_file)
+//                  	       editFile.setKeyValue("build.environment", "${BUILD_ENVIRONMENT}", config_file)
+//                  	       editFile.setKeyValue("compileSensorsSdk", "${COMPILE_SENSORS_SDK}", config_file)
+//                  	       file_content = readFile config_file
+//                            println file_content
+//                  	       }catch (Exception e) {
+//                  	           error("Error editFile :" + e)
+//                  	       }
+//               }
+//           }
+//         }
 
         stage('Build master APK') {
             when {
@@ -64,7 +55,7 @@ pipeline {
             }
             steps {
               sh "chmod +x gradlew"
-              sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}-DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}"
+              sh "./gradlew clean assemble${MARKET}${BUILD_TYPE} -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}"
             }
             post {
                 failure {
@@ -82,7 +73,7 @@ pipeline {
             }
             steps {
                 sh "chmod +x gradlew"
-                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE} -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}"
             }
             post {
                 failure {
