@@ -64,7 +64,7 @@ pipeline {
             }
             steps {
               sh "chmod +x gradlew"
-              sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}"
+              sh "./gradlew clean assemble${MARKET}${BUILD_TYPE}-DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}"
             }
             post {
                 failure {
