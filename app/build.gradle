@@ -20,7 +20,7 @@ ext {
     debug = prop.getProperty('build.environment')?: "test"
     buildNum = prop.getProperty('build.num') ?: "debug"
 
-    //def firstParam = System.getProperty("firstParam")
+    def firstParam = System.getProperty("firstParam")
     def secondParam = System.getProperty("secondParam")
     def thirdParam = System.getProperty("thirdParam")
     def isJenkins = System.getProperty("isJenkinsParam")
