@@ -28,6 +28,9 @@ pipeline {
                  println env.APP_NAME   //在jenkins 配置的全局变量展示
                 }
              }
+             steps{
+                echo "hello"
+             }
         }
 
 //         stage('set local properties'){
