@@ -85,21 +85,6 @@ pipeline {
             }
         }
 
-      stage('Build dev APK') {
-           steps {
-                sh "chmod +x gradlew"
-                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE} -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}"
-           }
-           post {
-                failure {
-                    echo "Build dev APK Failure!"
-                }
-                success {
-                    echo "Build dev APK Success!"
-                }
-           }
-      }
-
         stage('ArchiveAPK') {//存储的apk
             steps {
                 archiveArtifacts(artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true, onlyIfSuccessful: true)
