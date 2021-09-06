@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.LayoutInflater
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,5 +25,6 @@ class MainActivity : AppCompatActivity() {
         msg.obj = "msg1"
         handler.sendMessage(msg)
         val set =HashSet<Int>()
+        //LayoutInflater.from(this).inflate()
     }
 }

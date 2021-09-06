@@ -28,9 +28,6 @@ pipeline {
                  println env.APP_NAME   //在jenkins 配置的全局变量展示
                 }
              }
-             steps{
-                echo "hello"
-             }
         }
 
 //         stage('set local properties'){
@@ -51,7 +48,6 @@ pipeline {
 //               }
 //           }
 //         }
-
         stage('Build master APK') {
             when {
                 branch 'master'
@@ -89,6 +85,21 @@ pipeline {
             }
         }
 
+      stage('Build dev APK') {
+           steps {
+                sh "chmod +x gradlew"
+                sh "./gradlew clean assemble${MARKET}${BUILD_TYPE} -DfirstParam=${env.APP_NAME} -DsecondParam=${env.KEY} -DthirdParam=${env.PWD} -DisJenkinsParam=${env.IS_JENKINS}"
+           }
+           post {
+                failure {
+                    echo "Build dev APK Failure!"
+                }
+                success {
+                    echo "Build dev APK Success!"
+                }
+           }
+      }
+
         stage('ArchiveAPK') {//存储的apk
             steps {
                 archiveArtifacts(artifacts: 'app/build/outputs/apk/**/*.apk', fingerprint: true, onlyIfSuccessful: true)
@@ -124,7 +135,8 @@ pipeline {
              }
           }
         }
-    }
+      }
+
 }
 //report 提交日志
 @NonCPS

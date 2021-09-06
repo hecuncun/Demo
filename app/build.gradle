@@ -110,7 +110,7 @@ android {
             def iconPath = "app/src/main/res/mipmap-hdpi/ic_launcher.png"
             def apkPath = "app/build/outputs/apk/google/debug/app-google-debug.apk"
             def buildNumber = project.android.defaultConfig.versionCode
-            def changeLog = "版本更新日志"
+            def changeLog = "demo2.2.0 -9 测试环境"
             //执行Python脚本
             //def pythonPath = "c:\\users\\xinmo\\appdata\\local\\programs\\python\\python39\\python.exe"
             def pythonPath = "/usr/bin/python3"
